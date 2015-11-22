@@ -2,16 +2,19 @@ require 'rake'
 require 'rspec/core/rake_task'
 require_relative 'db/config'
 require_relative 'lib/students_importer'
+require_relative 'lib/teachers_importer'
 
 
 desc "create the database"
 task "db:create" do
   touch 'db/ar-students.sqlite3'
+  touch 'db/ar-teachers.sqlite3'
 end
 
 desc "drop the database"
 task "db:drop" do
   rm_f 'db/ar-students.sqlite3'
+  rm_f 'db/ar-teachers.sqlite3'
 end
 
 desc "migrate the database (options: VERSION=x, VERBOSE=false, SCOPE=blog)."
@@ -26,6 +29,7 @@ end
 desc "populate the test database with sample data"
 task "db:populate" do
   StudentsImporter.import
+  TeachersImporter.import
 end
 
 desc 'Retrieves the current schema version number'
