@@ -8,7 +8,8 @@ class Student < ActiveRecord::Base
 	validates :phone,
 		:format => { :with => /\d{3}.+\d{3}.+\d{4}/}
 
-
+	has_many :classrooms, :foreign_key => :student_id
+	has_many :teachers, :through => :classrooms
  def name
  	fullname = "#{first_name} #{last_name}"
 
